@@ -19,56 +19,42 @@ namespace Universidade
 
         public void SolicitarDadosProfessor()
         {
-            Professor professor = new Professor();
-            Console.Write("Digite seu nome: ");
-            professor.nome = Console.ReadLine();
-
-            Console.Write("Digite seu CPF: ");
-            professor.cpf = Console.ReadLine();
-
-            Console.Write("Digite seu endereço: ");
-            professor.endereco = Console.ReadLine();
-
-            DateTime data;
-            bool dataValida = false;
-
-            while (!dataValida)
+            ListaProfessor.Add(new Professor
             {
-                Console.Write("Digite sua data de nascimento no formato dd/mm/aaaa: ");
-                string inputData = Console.ReadLine();
+                nome = "Ana Souza",
+                cpf = "111.222.333-44",
+                endereco = "Rua D, 567",
+                dataNascimento = new DateTime(2001, 3, 20),
+                idade = (DateTime.Now.Year - new DateTime(2001, 3, 20).Year),
+                curso = "Psicologia",
+                periodo = 3
+            });
 
-                if (DateTime.TryParseExact(inputData, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out data))
-                {
+            ListaProfessor.Add(new Professor
+            {
+                nome = "Lucas Santos",
+                cpf = "555.444.333-22",
+                endereco = "Avenida E, 789",
+                dataNascimento = new DateTime(1998, 9, 8),
+                idade = (DateTime.Now.Year - new DateTime(1998, 9, 8).Year),
+                curso = "Arquitetura",
+                periodo = 5
+            });
 
-                    dataValida = true;
-
-                    DateTime dataAtual = DateTime.Now;
-                    int idade = dataAtual.Year - data.Year;
-
-                    if (dataAtual.Month < data.Month || (dataAtual.Month == data.Month && dataAtual.Day < data.Day))
-                    {
-                        idade--;
-                        professor.idade = idade;
-                    }
-
-                    Console.WriteLine("Sua idade: " + idade);
-                }
-                else
-                {
-                    Console.WriteLine("Data inválida! Tente novamente.");
-                }
-            }
-
-            Console.Write("Informe seu curso: ");
-            professor.curso = Console.ReadLine();
-
-            Console.Write("Informe qual é o seu período: ");
-            professor.periodo = int.Parse(Console.ReadLine());
-
-            CadastrarProfessor(professor);
+            ListaProfessor.Add(new Professor
+            {
+                nome = "Camila Lima",
+                cpf = "999.888.777-66",
+                endereco = "Rua F, 321",
+                dataNascimento = new DateTime(2003, 7, 12),
+                idade = (DateTime.Now.Year - new DateTime(2003, 7, 12).Year),
+                curso = "Letras",
+                periodo = 2
+            });
         }
         public void ImprimirProfessores()
         {
+            Console.WriteLine("       ---  Lista de Professores Cadastrados --- ");
             foreach (var item in ListaProfessor)
             {
                 Console.WriteLine($"Nome: {item.nome}");

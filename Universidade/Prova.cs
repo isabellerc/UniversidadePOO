@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Universidade;
@@ -9,72 +10,99 @@ using Universidade;
 namespace Universidade
 {
 
+
     internal class Prova
     {
-       
-        public string nome { get; set; }
-        public int pontos { get; set; }
-    
 
-        // Criando a lista de provas
-        List<Prova> listaProvas = new List<Prova>();
 
-        // Adicionando as provas à lista
-  
-    public void CadastrarProva()
+
+        public decimal notaProva1 { get; set; }
+        public decimal notaProva2 { get; set; }
+        public decimal notaProva3 { get; set; }
+
+
+
+
+        private List<Aluno> listaAluno;
+
+        public Prova(List<Aluno> listaAluno)
         {
-            listaProvas.Add(new Prova { nome = "provaBimestral1", pontos = 2 });
-            listaProvas.Add(new Prova { nome = "provaBimestral2", pontos = 2 });
-            listaProvas.Add(new Prova { nome = "provaFinal", pontos = 3 });
-
+            this.listaAluno = listaAluno;
         }
 
         public void LancarNotas()
         {
-            Professor professor = new Professor();
-            MatriculaAluno matriculaAluno = new MatriculaAluno();
-            matriculaAluno.AdicionandoDadosAluno();
-            List<Aluno> listaAluno = matriculaAluno.ListaAluno;
+            foreach (var aluno in listaAluno)
+            {
+                Console.WriteLine("Digite as notas para o aluno " + aluno.nome);
 
+                Console.Write("Prova 1: ");
+                aluno.notaProva1 = decimal.Parse(Console.ReadLine());
 
+                Console.Write("Prova 2: ");
+                aluno.notaProva2 = decimal.Parse(Console.ReadLine());
 
-            string nomeAlunoLancarNota = "teo";
-                // Solicitação do nome do aluno e lançamento da nota
-                do {
+                Console.Write("Prova 3: ");
+                aluno.notaProva3 = decimal.Parse(Console.ReadLine());
 
-                    Console.Write("Digite o nome do aluno: ");
-                    nomeAlunoLancarNota = Console.ReadLine();
-
-                    Aluno alunoSelecionado = listaAluno.Find(aluno => aluno.nome == nomeAlunoLancarNota);
-
-                    if (alunoSelecionado != null)
-                    {
-                        Console.WriteLine("Aluno encontrado: " + alunoSelecionado.nome);
-
-                        Console.WriteLine("Digite a nota do aluno:");
-                        double nota = Convert.ToDouble(Console.ReadLine());
-
-                        LancarNotas(alunoSelecionado, nota); // Chamada corrigida do método
-                    }
-                    else
-                    {
-                        Console.Write("Aluno não encontrado. Digite novamente: ");
-                        nomeAlunoLancarNota = Console.ReadLine();
-                    }
-                } while (nomeAlunoLancarNota == null);
-
-
-               
-
+                Console.WriteLine();
+            }
         }
-                // Método LancarNotas dentro da mesma classe
-                public void LancarNotas(Aluno aluno, double nota)
+
+        public void ImprimirNotas()
+        {
+            foreach (var aluno in listaAluno)
+            {
+                Console.WriteLine("               ------- Notas do Aluno " + aluno.nome + " -------");
+                Console.WriteLine("Prova 1: " + aluno.notaProva1);
+                Console.WriteLine("Prova 2: " + aluno.notaProva2);
+                Console.WriteLine("Prova 3: " + aluno.notaProva3);
+                Console.WriteLine();
+            }
+        }
+
+        public void GerarRelatorio()
+        {
+            Console.WriteLine();
+            Console.WriteLine("------- Relatório dos Alunos -------");
+            Console.WriteLine();
+
+            Console.Write("Digite o nome do aluno: ");
+            string nomeAluno = Console.ReadLine();
+
+            
+            Aluno aluno = listaAluno.FirstOrDefault(a => a.nome.Equals(nomeAluno, StringComparison.OrdinalIgnoreCase));
+
+            if (aluno != null)
+            {
+                Console.WriteLine("ALUNO: " + aluno.nome);
+                decimal somaNotas = aluno.notaProva1 + aluno.notaProva2 + aluno.notaProva3;
+                Console.WriteLine("SOMA DAS NOTAS: " + somaNotas);
+                decimal mediaNotas = somaNotas / 3;
+                Console.WriteLine("MÉDIA: " + mediaNotas.ToString("F2"));
+
+                if (somaNotas < 7)
                 {
-                    // Implementação para lançar notas do aluno
+                    Console.WriteLine("SITUAÇÃO: REPROVADO");
                 }
-        
+                else
+                {
+                    Console.WriteLine("SITUAÇÃO: APROVADO");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Aluno não encontrado.");
+            }
+
+            Console.WriteLine(); 
+        }
+
+
     }
 }
 
-        
+
+
+
 

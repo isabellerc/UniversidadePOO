@@ -8,16 +8,20 @@ namespace Universidade
 {
     internal class MenuPrincipal
     {
-
+        Aluno aluno = new Aluno();
         Administrador administrador = new Administrador();
         Professor professor = new Professor();
+
 
        
             public void Menu()
             {
-                while (true)
-                {
-                    Console.WriteLine("Bem-vindo ao sistema da Universidade de Araxá!");
+                    
+                    Console.WriteLine();
+                    Console.WriteLine("                   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    Console.WriteLine("                        Bem-vindo ao sistema da Universidade de Araxá!     ");
+                    Console.WriteLine("                   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    Console.WriteLine();
                     Console.WriteLine("Que tipo de usuário você é:");
                     Console.WriteLine("1 - Aluno");
                     Console.WriteLine("2 - Professor");
@@ -29,7 +33,8 @@ namespace Universidade
                     switch (opcaoUsuario)
                     {
                         case "1":
-                            Console.WriteLine("Aluno");
+                           
+                            aluno.MenuAluno();
                             break;
 
                         case "2":
@@ -49,7 +54,7 @@ namespace Universidade
                             Console.WriteLine("Opção inválida!");
                             break;
                     }
-                }
+                
             }
         }
     }

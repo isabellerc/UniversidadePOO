@@ -7,6 +7,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Universidade
 {
+
     public abstract class Pessoa
     {
         public string nome { get; set; }

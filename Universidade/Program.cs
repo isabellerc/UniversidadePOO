@@ -6,7 +6,7 @@ using Universidade;
 using System;
 using Universidade;
 
-class Program
+public class Program
 {
     
 
